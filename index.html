@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+  >>> WANT TO ADD YOUR PHOTOS, SONG OR VIDEO? Open script.js: the settings are the first thing in the file (look for "MEDIA") <<<
+
+  HOW THIS PROJECT IS ORGANIZED (3 files, keep them in the same folder)
+  1. index.html -> this file: the content. Each "page" of the book is a <section class="pg">
+  2. style.css  -> the looks: colors, sizes, fonts, animations
+  3. script.js  -> the behavior: page turning, music, photo upload, etc.
+
+  TIP: Text you can change is easy to find. Look for words like "Teacher's Name",
+  "Her Story", "Thank You For...", etc. in this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>To the Best Teacher Ever</title>
+
+<!-- Loads the fancy fonts from Google Fonts (needs internet) -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- Our own styles (all the CSS lives in style.css) -->
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- =====================================================
+     HTML = the content. Everything below is what you see.
+     ===================================================== -->
+
+<!-- Invisible heart shape. The cover photo is cut into this shape (see .heart .clip in CSS) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="hc" clipPathUnits="objectBoundingBox"><path d="M0.5,0.95 C0.1,0.65 0.02,0.4 0.02,0.28 C0.02,0.1 0.18,0.02 0.3,0.02 C0.4,0.02 0.47,0.08 0.5,0.15 C0.53,0.08 0.6,0.02 0.7,0.02 C0.82,0.02 0.98,0.1 0.98,0.28 C0.98,0.4 0.9,0.65 0.5,0.95Z"/></clipPath></defs></svg>
+
+<!--
+  THE BOOK: every <section class="pg"> inside is one page.
+  Pages are stacked on top of each other; JavaScript flips them one by one.
+
+  Handy things to know:
+  - contenteditable="true" means you can tap the text and type to change it.
+  - <button class="ph"> is a photo box. Tapping it lets you pick a photo.
+  - class="glit tl/tr/br" are the golden glitter corners.
+  - class="foot" is the small line at the bottom of the page.
+-->
+<div class="book" id="book">
+
+  <!-- PAGE 1: Cover -->
+  <section class="pg" aria-label="Cover">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <h1 class="script abs" style="left:0;right:0;top:6%;text-align:center;font-size:11.5cqw">To the <em style="font-family:'Cormorant Garamond',serif;font-size:13cqw">Best</em><br>Teacher ever!</h1>
+    <!-- Heart-shaped photo -->
+    <div class="heart" style="top:30%;width:60%;left:20%">
+      <div class="clip"><button class="ph" type="button">Tap to add a photo</button></div>
+      <!-- Dotted white outline drawn around the heart -->
+      <svg viewBox="0 0 100 100"><path d="M50,95 C10,65 2,40 2,28 C2,10 18,2 30,2 C40,2 47,8 50,15 C53,8 60,2 70,2 C82,2 98,10 98,28 C98,40 90,65 50,95Z" fill="none" stroke="#fffaf0" stroke-width="4.2" stroke-dasharray="0 5.6" stroke-linecap="round"/></svg>
+    </div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 2: Her Story (3 photos + a short paragraph) -->
+  <section class="pg" aria-label="Her story">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:5%;text-align:center;font-size:14cqw">Her Story</h2>
+    <!-- Wavy dotted line behind the photos -->
+    <svg class="tline" viewBox="0 0 100 30" preserveAspectRatio="none"><path d="M5,18 C20,2 30,30 50,16 C70,2 80,28 95,14" fill="none" stroke="#b8892e" stroke-width=".7" stroke-dasharray="1.6 1.6" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+    <!-- --r is the tilt of each polaroid -->
+    <div class="pol" style="--r:-4deg;left:4%;top:24%;width:29%"><div class="sq"><button class="ph" type="button">Her old photo</button></div><i contenteditable="true" style="font-size:4.4cqw">Her start</i></div>
+    <div class="pol" style="--r:3deg;left:35.5%;top:31%;width:29%"><div class="sq"><button class="ph" type="button">Her old photo</button></div><i contenteditable="true" style="font-size:4.4cqw">Her years</i></div>
+    <div class="pol" style="--r:-3deg;left:67%;top:24%;width:29%"><div class="sq"><button class="ph" type="button">Class photo</button></div><i contenteditable="true" style="font-size:4.4cqw">Then us</i></div>
+    <p class="txt" contenteditable="true" style="left:8%;right:8%;top:70%;text-align:center;font-size:4cqw">Before she was our teacher, she was a student with big dreams. Every year she taught became a story, and we are lucky to be part of it.</p>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 3: Things Only She Says (speech bubbles)
+       --dl = how long to wait before each bubble pops in. -->
+  <section class="pg" aria-label="Things only she says">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:5%;text-align:center;font-size:12cqw">Things Only She Says</h2>
+    <div class="bub" contenteditable="true" style="--dl:.5s;left:6%;top:23%">"Sa akin lang muna ang tingin."</div>
+    <div class="bub r" contenteditable="true" style="--dl:1.2s;right:6%;top:40%">"Pasensya na kayo mga anak."</div>
+    <div class="bub" contenteditable="true" style="--dl:1.9s;left:6%;top:57%">"Pakuha ng loptap."</div>
+    <div class="bub r" contenteditable="true" style="--dl:2.6s;right:6%;top:74%">"Sino cleaners?"</div>
+  </section>
+
+  <!-- PAGE 4: What we love about her (spinning vinyl + 3 photos) -->
+  <section class="pg" aria-label="What we love about her">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <!-- The text is curved along a circle path (id="arc") -->
+    <div class="vinyl"><svg viewBox="0 0 100 100"><defs><path id="arc" d="M50,50 m-33,0 a33,33 0 1,1 66,0 a33,33 0 1,1 -66,0"/></defs><text fill="#fff" font-family="Great Vibes,cursive" font-size="9"><textPath href="#arc" startOffset="3%">What we love about them</textPath></text></svg></div>
+    <div class="pol" style="--r:5deg;right:6%;top:5%;width:34%"><div class="sq"><button class="ph" type="button">Add photo</button></div><i contenteditable="true">They're Patient</i></div>
+    <div class="pol" style="--r:-4deg;right:22%;top:35%;width:34%"><div class="sq"><button class="ph" type="button">Add photo</button></div><i contenteditable="true">They're Kind</i></div>
+    <div class="pol" style="--r:3deg;left:26%;top:60%;width:34%"><div class="sq"><button class="ph" type="button">Add photo</button></div><i contenteditable="true">Approachable</i></div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 5: Thank You For... (list with hearts, appears line by line) -->
+  <section class="pg" aria-label="Thank you for">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:5%;text-align:center;font-size:13cqw">Thank You For...</h2>
+    <div class="abs" style="left:9%;right:7%;top:23%;display:flex;flex-direction:column;gap:4.2cqw" contenteditable="true">
+      <div class="li" style="--dl:.6s">Staying back when we needed one more try</div>
+      <div class="li" style="--dl:2.2s">Believing in us before we believed in ourselves</div>
+      <div class="li" style="--dl:3.8s">Laughing with us, never at us</div>
+      <div class="li" style="--dl:5.4s">Making the hard days feel lighter</div>
+      <div class="li" style="--dl:7s">Never letting us give up</div>
+    </div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 6: Thank You letter (tap the text to edit it, e.g. replace "Teacher's Name") -->
+  <section class="pg" aria-label="Thank you letter">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:7%;top:6%;font-size:15cqw">Thank You</h2>
+    <div class="letter" contenteditable="true">
+      <p><b>To: <span id="tname">Mina I. Razon</span></b></p>
+      <p>Dear Teacher, your guidance has been the most happiest time of our life, guiding  our paths with knowledge and wisdom. Thank you for your unwavering dedication, patience, and the countless hours you've invested in shaping our minds and futures.</p>
+      <p>Your passion for teaching inspires us daily, and we are grateful for your commitment to helping us grow, learn, and become the best versions of ourselves. Happy Teachers' Day!</p>
+    </div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 7: Our Class (film strip with 2 photos) -->
+  <section class="pg" aria-label="Our class">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:6%;text-align:center;font-size:15cqw">Our Class</h2>
+    <div class="film"><div><button class="ph" type="button">Add photo</button></div><div><button class="ph" type="button">Add photo</button></div></div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 8: Our Favorite Moments (2 polaroids) -->
+  <section class="pg" aria-label="Our favorite moments">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:6%;top:5%;font-size:11cqw">Our Favorite Moments</h2>
+    <div class="pol" style="--r:-3deg;left:8%;top:24%;width:44%"><div class="sq"><button class="ph" type="button">Add photo</button></div><i contenteditable="true">With our teacher</i></div>
+    <div class="pol" style="--r:4deg;right:7%;top:36%;width:40%"><div class="sq"><button class="ph" type="button">Add photo</button></div><i contenteditable="true">Celebration day</i></div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 9: First Day vs Forever (before and after photos) -->
+  <section class="pg" aria-label="First day versus forever">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:5%;text-align:center;font-size:12cqw">First Day vs Forever</h2>
+    <div class="abs" style="left:7%;top:25%;width:40%;aspect-ratio:1;border:2cqw solid var(--paper)"><button class="ph" type="button">Add first-day photo</button></div>
+    <div class="abs" style="right:7%;top:25%;width:40%;aspect-ratio:1;border:2cqw solid var(--paper)"><button class="ph" type="button">Add latest photo</button></div>
+    <p class="txt" contenteditable="true" style="left:7%;top:62%;width:40%">Even though most of your time is in the office, You are still our most lovely teacher.</p>
+    <p class="txt" contenteditable="true" style="right:7%;top:62%;width:40%">This isn't just a class, it's a family, forever connected.</p>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 10: Wall of Wishes (6 sticky notes; replace "Name" with each classmate's name) -->
+  <section class="pg" aria-label="Wall of wishes">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:5%;text-align:center;font-size:13cqw">Wall of Wishes</h2>
+    <div class="wn" contenteditable="true" style="--r:-3deg;--dl:.5s;left:4%;top:22%">Don't leave us Ninang.<b>- Lenard</b></div>
+    <div class="wn" contenteditable="true" style="--r:2deg;--dl:1.8s;left:36%;top:26%">Always be our programing teacher.<b>- April</b></div>
+    <div class="wn" contenteditable="true" style="--r:-2deg;--dl:3.1s;left:68%;top:22%">We always appreciated your effort on us so stay with us. <b>- Trisha</b></div>
+    <div class="wn" contenteditable="true" style="--r:3deg;--dl:4.4s;left:5%;top:56%">Best teacher in the whole school! that's why you shouldn't leave us<b>-Jaydhen </b></div>
+    <div class="wn" contenteditable="true" style="--r:-2deg;--dl:5.7s;left:36%;top:58%">You believed in me.I also believe that hou will stay with us to the end of our 12 journey.<b>- Laygo</b></div>
+    <div class="wn" contenteditable="true" style="--r:2deg;--dl:7s;left:67%;top:55%">I know that you always have so much work even with that I jope that you still can take care of your health.<b>-Vane </b></div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 11: Memory Lane (two rows of photos that slide sideways).
+       The two empty "track" divs below are filled by JavaScript (see buildRow). -->
+  <section class="pg" aria-label="Memory lane">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:5%;text-align:center;font-size:14cqw">Memory Lane</h2>
+    <div class="mq" style="top:24%"><div class="track" id="row1"></div></div>
+    <div class="mq" style="top:58%"><div class="track rev" id="row2"></div></div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 12: Video message (tap the button to pick a video from your phone) -->
+  <section class="pg" aria-label="Video message">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:6%;text-align:center;font-size:13cqw">Our Video Message</h2>
+    <div class="vid" id="vid"><button class="vbtn" id="vbtn" type="button"><b></b>Tap to add a video</button></div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 13: Our Promise to You -->
+  <section class="pg" aria-label="Our promise">
+    <div class="glit tr"></div><div class="glit br"></div>
+    <h2 class="script abs" style="left:0;right:0;top:7%;text-align:center;font-size:13cqw">Our Promise to You</h2>
+    <div class="abs" style="left:0;right:0;top:30%;text-align:center;display:flex;flex-direction:column;gap:6cqw" contenteditable="true">
+      <p class="script li" style="--dl:.7s;font-size:10cqw;padding:0">We will be kind.</p>
+      <p class="script li" style="--dl:2.2s;font-size:10cqw;padding:0">We will work hard.</p>
+      <p class="script li" style="--dl:3.7s;font-size:10cqw;padding:0">We will always be humble.</p>
+    </div>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 14: Happy Teachers' Day! (shiny text + falling confetti; JS creates the confetti pieces) -->
+  <section class="pg" aria-label="Happy Teachers' Day">
+    <div class="glit tl"></div><div class="glit br"></div>
+    <div class="conf" id="conf" aria-hidden="true"></div>
+    <h2 class="script shine abs" style="left:0;right:0;top:22%;text-align:center;font-size:17cqw">Happy<br>Teachers' Day!</h2>
+    <p class="script abs" contenteditable="true" style="left:0;right:0;top:68%;text-align:center;font-size:8cqw">With love, your class</p>
+    <div class="foot">To teach is to touch a life forever</div>
+  </section>
+
+  <!-- PAGE 15: Credits (scrolls up like movie credits) -->
+  <section class="pg" aria-label="Credits" style="background:#17120a">
+    <div class="roll" contenteditable="true">
+      <small>Starring</small><p class="script">Our Wonderful Teacher</p>
+      <small>Directed by</small><p class="script">Your Class</p>
+      <small>Special thanks to</small><p class="script">Every lesson, every laugh,<br>every second chance</p>
+      <small>With love, always</small><p class="script">The End</p>
+    </div>
+  </section>
+</div>
+<!-- END OF THE BOOK -->
+
+<!-- OPENING SCREEN: shown first. Browsers only allow sound after a tap, so the show starts when you press Play. -->
+<div id="intro"><h1 class="shine">A Gift for Our Teacher</h1><p>Turn your sound on, sit back and enjoy.</p><button id="play" type="button">Play</button></div>
+
+<!-- YOUR SONG: set in script.js (MEDIA.song at the very top). -->
+<audio id="bgm" loop preload="auto"></audio>
+
+<!-- Sound on/off button (the music note, top right) -->
+<button id="snd" type="button" aria-label="Turn music on or off">&#9834;</button>
+
+<!-- Thin progress bar under the book: shows how long until the next page turns -->
+<div class="bar" aria-hidden="true"><div id="fill"></div></div>
+
+<!-- Small instructions that fade away after a few seconds -->
+<p class="hint" id="hint">Plays automatically. Swipe to turn pages, hold to pause, double-tap for full screen.</p>
+
+<!-- Our own JavaScript (all the behavior lives in script.js). It is loaded last so the page is ready first. -->
+<script src="script.js"></script>
+</body>
+</html>
